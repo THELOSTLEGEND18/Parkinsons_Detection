@@ -1,0 +1,27 @@
+<<<<<<< HEAD
+BirthYear: 1953
+Gender: Male
+Parkinsons: True
+Tremors: False
+DiagnosisYear: 2015
+Sided: None
+UPDRS: Don't know
+Impact: Mild
+Levadopa: True
+DA: True
+MAOB: False
+Other: False
+=======
+BirthYear: 1953
+Gender: Male
+Parkinsons: True
+Tremors: False
+DiagnosisYear: 2015
+Sided: None
+UPDRS: Don't know
+Impact: Mild
+Levadopa: True
+DA: True
+MAOB: False
+Other: False
+>>>>>>> a0d3dba (added a chatbot)

@@ -1,0 +1,27 @@
+<<<<<<< HEAD
+BirthYear: 
+Gender: Female
+Parkinsons: False
+Tremors: False
+DiagnosisYear:  ------
+Sided: None
+UPDRS: Don't know
+Impact:  ------
+Levadopa: False
+DA: False
+MAOB: False
+Other: False
+=======
+BirthYear: 
+Gender: Female
+Parkinsons: False
+Tremors: False
+DiagnosisYear:  ------
+Sided: None
+UPDRS: Don't know
+Impact:  ------
+Levadopa: False
+DA: False
+MAOB: False
+Other: False
+>>>>>>> a0d3dba (added a chatbot)
