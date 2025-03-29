@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 BirthYear: 1938
 Gender: Male
 Parkinsons: True
@@ -11,17 +10,3 @@ Levadopa: False
 DA: False
 MAOB: False
 Other: True
-=======
-BirthYear: 1938
-Gender: Male
-Parkinsons: True
-Tremors: False
-DiagnosisYear: 2016
-Sided: None
-UPDRS: Don't know
-Impact: 
-Levadopa: False
-DA: False
-MAOB: False
-Other: True
->>>>>>> a0d3dba (added a chatbot)

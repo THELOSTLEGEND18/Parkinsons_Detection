@@ -12,8 +12,8 @@ forward_voice_results(forward_results_to_chatbot)
 app = gr.TabbedInterface(
     [home, type, voice, chatbot_ui],
     ["Home", "Keystroke Analysis", "Voice Analysis", "Medical Chatbot"],
-    title="Parkinson's Disease Detection & Information Tool",
-    theme=gr.themes.Soft()
+    title="ParkiSense",
+    theme="allenai/gradio-theme"
 )
 
 # Launch the application with PWA support

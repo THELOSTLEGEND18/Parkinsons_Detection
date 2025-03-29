@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 BirthYear: 1951
 Gender: Female
 Parkinsons: True
@@ -11,17 +10,3 @@ Levadopa: True
 DA: False
 MAOB: False
 Other: True
-=======
-BirthYear: 1951
-Gender: Female
-Parkinsons: True
-Tremors: True
-DiagnosisYear: 2005
-Sided: None
-UPDRS: Don't know
-Impact: Mild
-Levadopa: True
-DA: False
-MAOB: False
-Other: True
->>>>>>> a0d3dba (added a chatbot)
