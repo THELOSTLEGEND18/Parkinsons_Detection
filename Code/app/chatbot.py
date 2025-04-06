@@ -16,7 +16,7 @@ if not api_key:
 # Configure the Google Gemini API
 genai.configure(api_key=api_key)
 
-# Enhance chatbot prompt to better explain results
+# Chatbot prompt
 chatbot_prompt = """You are a medical assistant specializing in Parkinson's detection.
 Your goal is to help users understand Parkinson's symptoms, keystroke/voice test results, 
 and provide lifestyle tips. You do NOT diagnose but suggest consulting a doctor when needed.
@@ -34,16 +34,12 @@ When explaining test results:
 # Initialize Gemini chatbot
 model = genai.GenerativeModel("gemini-2.0-flash")
 
-# Chat history storage - store as dictionaries with 'role' and 'content' keys for Gradio compatibility
+# Chat history storage
 chat_history = []
-
-# Store forwarded results
 forwarded_results = []
 
 def forward_results_to_chatbot(test_type, prediction, details, features):
-    """
-    Receives test results and stores them for explanation.
-    """
+    """Stores test results for chatbot explanation."""
     global forwarded_results
     forwarded_results.append({
         "test_type": test_type,
@@ -53,23 +49,17 @@ def forward_results_to_chatbot(test_type, prediction, details, features):
     })
 
 def chat_with_bot(user_input):
-    """
-    Handles user queries, maintains chat history, and generates responses using Gemini API.
-    """
+    """Handles chatbot conversation and integrates test results if available."""
     global chat_history, forwarded_results
     
     try:
-        # If the user asks for test results, include them in the response
         if "test" in user_input.lower() or "result" in user_input.lower():
             if forwarded_results:
-                # Prepare a detailed summary for the model to explain
                 result_data = []
                 for result in forwarded_results:
                     result_data.append(f"Test Type: {result['test_type']}")
                     result_data.append(f"Prediction: {result['prediction']}")
                     result_data.append(f"Details: {result['details']}")
-                    
-                    # Format features for better readability
                     if result['features']:
                         feature_text = "Features measured:\n"
                         for feature, value in result['features'].items():
@@ -78,7 +68,6 @@ def chat_with_bot(user_input):
                 
                 results_summary = "\n".join(result_data)
                 
-                # Ask the model to explain these results
                 context = [
                     chatbot_prompt,
                     "Please explain these test results in medical context:",
@@ -89,10 +78,9 @@ def chat_with_bot(user_input):
                 response = model.generate_content(context)
                 bot_response = response.text
                 
-                # Add messages in the correct format
                 chat_history.append({"role": "user", "content": user_input})
                 chat_history.append({"role": "assistant", "content": bot_response})
-                forwarded_results = []  # Clear results after explaining
+                forwarded_results = []
                 return chat_history
             else:
                 msg = "No test results available. Please complete a voice or typing test first."
@@ -100,21 +88,17 @@ def chat_with_bot(user_input):
                 chat_history.append({"role": "assistant", "content": msg})
                 return chat_history
 
-        # Prepare conversation context for the API
         conversation = [chatbot_prompt]
         for message in chat_history:
             conversation.append(message["content"])
         conversation.append(user_input)
         
-        # Generate response using Gemini API
         response = model.generate_content(conversation)
         bot_response = response.text
         
-        # Add the new exchange to chat history with the correct format
         chat_history.append({"role": "user", "content": user_input})
         chat_history.append({"role": "assistant", "content": bot_response})
         
-        # Return the updated history for Gradio
         return chat_history
     
     except Exception as e:
@@ -128,31 +112,25 @@ def clear_chat():
     global chat_history, forwarded_results
     chat_history = []
     forwarded_results = []
-    return []  # Clear the Gradio chatbox
+    return []
 
-# Create a Gradio interface for the chatbot to be used in the tabbed app
 def create_chatbot_interface():
+    """Creates Gradio chatbot UI."""
     with gr.Blocks() as chatbot_interface:
         with gr.Column():
             gr.Markdown("## 🩺 Parkinson's Medical Chatbot")
             gr.Markdown("Ask me about Parkinson's disease, test results, or lifestyle tips!")
             
-            # Update Chatbot component to use 'messages' format
             chatbox = gr.Chatbot(height=500, type="messages")
             
             with gr.Row():
-                user_input = gr.Textbox(
-                    placeholder="Type your question here...", 
-                    show_label=False,
-                    scale=9
-                )
+                user_input = gr.Textbox(placeholder="Type your question here...", show_label=False, scale=9)
                 send_button = gr.Button("Send", scale=1)
             
             clear_button = gr.Button("Clear Chat")
             
-            # Event handlers
             send_button.click(chat_with_bot, inputs=user_input, outputs=chatbox)
-            user_input.submit(chat_with_bot, inputs=user_input, outputs=chatbox)  # Allow pressing Enter
+            user_input.submit(chat_with_bot, inputs=user_input, outputs=chatbox)
             clear_button.click(clear_chat, outputs=chatbox)
             
     return chatbot_interface
