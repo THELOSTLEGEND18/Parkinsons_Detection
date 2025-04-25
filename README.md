@@ -39,18 +39,13 @@ ParkiSense is an advanced AI-powered application designed to assist in the early
 
 ## 🛠️ Installation & Usage
 
-### **1️⃣ Clone the Repository**
+### ** Clone the Repository**
 ```bash
 git clone https://github.com/Pr1tZy/ParkiSense.git
 cd ParkiSense
 ```
 
-### **2️⃣ Install Dependencies**
-```bash
-pip install -r requirements.txt
-```
-
-### **3️⃣ Run the App**
+### **Run the App**
 ```bash
 python app.py
 ```
